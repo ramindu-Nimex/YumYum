@@ -3,7 +3,7 @@ import "./Home.css"
 import MultiItemCarousel from './MultiItemCarousel'
 import RestaurantCard from '../Restaurant/RestaurantCard'
 
-const restaurant = [1,1,1,1,1,1,1]
+const restaurant = [1,1,1,1,1,1,1,1]
 
 const Home = () => {
   return (
