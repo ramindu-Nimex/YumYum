@@ -1,16 +1,11 @@
 import { Divider, FormControl, FormControlLabel, Grid, Radio, RadioGroup, Typography } from '@mui/material'
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import MenuCard from './MenuCard';
-
-const categories = [
-   "pizza",
-   "burger",
-   "biriyani",
-   "chicken",
-   "rice",
-]
+import { useNavigate, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getRestaurantById, getRestaurantsCategory } from '../State/Restaurant/Action';
 
 const foodTypes = [
    {
@@ -30,11 +25,26 @@ const foodTypes = [
 const menu = [1,1,1,1,1,1]
 
 const RestaurantDetails = () => {
+   const navigate = useNavigate();
+   const dispatch = useDispatch();
+   const jwt = localStorage.getItem("jwt");
+   const {auth, restaurant} = useSelector((store) => store);
+
    const [foodType, setFoodType] = useState('all')
+
+   const {id,city} = useParams();
 
    const handleFilter = (e) => {
       console.log(e.target.value, e.target.name);
    }
+
+   console.log("restaurant", restaurant);
+
+   useEffect(() => {
+      dispatch(getRestaurantById({jwt, restaurantId:id}))
+      dispatch(getRestaurantsCategory({jwt, restaurantId:id}))
+   }, [])
+
   return (
     <div className='px-5 lg:px-20'>
       <section>
@@ -42,19 +52,19 @@ const RestaurantDetails = () => {
          <div>
             <Grid container spacing={2}>
                <Grid item xs={12}>
-                  <img src="https://images.unsplash.com/photo-1551632436-cbf8dd35adfa?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fHJlc3RhdXJhbnR8ZW58MHx8MHx8fDA%3D" alt="" className='w-full h-[40vh] object-cover'/>
+                  <img src={restaurant.restaurant?.images[0]} alt="" className='w-full h-[40vh] object-cover'/>
                </Grid>
                <Grid item xs={12} lg={6}>
-                  <img src="https://images.unsplash.com/photo-1551632436-cbf8dd35adfa?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fHJlc3RhdXJhbnR8ZW58MHx8MHx8fDA%3D" alt="" className='w-full h-[40vh] object-cover'/>
+                  <img src={restaurant.restaurant?.images[1]} alt="" className='w-full h-[40vh] object-cover'/>
                </Grid>
                <Grid item xs={12} lg={6}>
-                  <img src="https://images.unsplash.com/photo-1551632436-cbf8dd35adfa?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fHJlc3RhdXJhbnR8ZW58MHx8MHx8fDA%3D" alt="" className='w-full h-[40vh] object-cover'/>
+                  <img src={restaurant.restaurant?.images[0]} alt="" className='w-full h-[40vh] object-cover'/>
                </Grid>
             </Grid>
          </div>
          <div className="pt-3 pb-5">
-            <h1 className='text-4xl font-semibold'>Sri Lankan Fast Food</h1>
-            <p className='text-gray-500 mt-1'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur at voluptas animi eveniet aliquam porro laboriosam expedita voluptatem accusantium libero?</p>
+            <h1 className='text-4xl font-semibold'>{restaurant.restaurant?.name}</h1>
+            <p className='text-gray-500 mt-1'>{restaurant.restaurant?.description}</p>
             <div className='space-y-3 mt-3'>
                <p className="text-gray-500 flex items-center gap-3">
                   <LocationOnIcon />
@@ -95,7 +105,7 @@ const RestaurantDetails = () => {
                   <FormControl className='py-10 space-y-5' component={"fieldset"}>
                      <RadioGroup onChange={handleFilter} name='food_type' value={foodType}>
                         {
-                           categories.map((item) => <FormControlLabel key={item} value={item} control={<Radio />} label={item} />)
+                           restaurant.categories.map((item) => <FormControlLabel key={item} value={item} control={<Radio />} label={item.name} />)
                         }
                      </RadioGroup>
                   </FormControl>
