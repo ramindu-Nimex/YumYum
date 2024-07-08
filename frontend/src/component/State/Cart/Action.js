@@ -11,7 +11,7 @@ import { ADD_ITEM_TO_CART_FAILURE, ADD_ITEM_TO_CART_REQUEST, ADD_ITEM_TO_CART_SU
          },
        });
        dispatch({ type: FIND_CART_SUCCESS, payload: res.data });
-       console.log("data ", res.data);
+       console.log("my cart ", res.data);
      } catch (error) {
        dispatch({ type: FIND_CART_FAILURE, payload: error });
        console.log("Error", error);
@@ -64,7 +64,7 @@ import { ADD_ITEM_TO_CART_FAILURE, ADD_ITEM_TO_CART_REQUEST, ADD_ITEM_TO_CART_SU
      try {
        const { data } = await api.put(`/api/cart-item/update`, reqData.data, {
          headers: {
-           Authorization: `Bearer ${reqData.token}`,
+           Authorization: `Bearer ${reqData.jwt}`,
          },
        });
        dispatch({ type: UPDATE_CART_ITEM_SUCCESS, payload: data });

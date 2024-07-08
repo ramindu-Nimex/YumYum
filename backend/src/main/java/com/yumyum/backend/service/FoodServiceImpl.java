@@ -8,6 +8,7 @@ import com.yumyum.backend.request.CreateFoodRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -29,6 +30,7 @@ public class FoodServiceImpl implements FoodService{
         food.setIngredients(request.getIngredients());
         food.setSeasonal(request.isSeasonal());
         food.setVegetarian(request.isVegetarian());
+        food.setCreationDate(new Date());
         
         Food savedFood =  foodRepository.save(food);
         restaurant.getFoods().add(savedFood);
