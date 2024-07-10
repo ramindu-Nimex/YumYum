@@ -103,7 +103,7 @@ const Cart = () => {
             </div>
             <div className="flex justify-between text-gray-400">
               <p className="">Total Pay</p>
-              <p>₹{cart.cart.total+40+10+40}</p>
+              <p>₹{cart.cart?.total+40+10+40}</p>
             </div>
           </div>
         </section>

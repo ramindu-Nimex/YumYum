@@ -1,11 +1,11 @@
 import { ThemeProvider } from "@emotion/react";
 import { darkTheme } from "./component/Theme/DarkTheme";
 import { CssBaseline } from "@mui/material";
-import CustomerRouter from "./Routers/CustomerRouter";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "./component/State/Authentication/Action";
 import { findCart } from "./component/State/Cart/Action";
+import Routers from "./Routers/Routers";
 
 function App() {
   const dispatch = useDispatch();
@@ -20,7 +20,7 @@ function App() {
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      <CustomerRouter />
+      <Routers />
     </ThemeProvider>
   );
 }
