@@ -8,46 +8,22 @@ import { uploadImageToCloudinary } from "../utils/UploadToCloudinary";
 const initialValues = {
   name: "",
   description: "",
-  cuisineType: "",
-  streetAddress: "",
-  city: "",
-  stateProvince: "",
-  postalCode: "",
-  country: "",
-  email: "",
-  mobile: "",
-  twitter: "",
-  instagram: "",
-  openingHours: "Mon-Sun : 9.00 AM - 12.00 PM",
+  price: "",
+  category: "",
+  restaurantId: "",
+  vegetarian: true,
+  seasonal: false,
+  ingredients: [],
   images: [],
 };
 
-const CreateRestaurantForm = () => {
+const CreateMenuForm = () => {
   const [uploadImage, setUploadImage] = useState(false);
   const formik = useFormik({
     initialValues,
     onSubmit: (values) => {
-      const data = {
-        name: values.name,
-        description: values.description,
-        cuisineType: values.cuisineType,
-        streetAddress: {
-          address: values.streetAddress,
-          city: values.city,
-          stateProvince: values.stateProvince,
-          postalCode: values.postalCode,
-          country: values.country,
-        },
-        contactInformation: {
-          email: values.email,
-          mobile: values.mobile,
-          twitter: values.twitter,
-          instagram: values.instagram,
-        },
-        openingHours: values.openingHours,
-        images: values.images,
-      }
-      console.log("data----", data);
+      values.restaurantId = 2;
+      console.log("data----", values);
     },
   });
 
@@ -145,12 +121,12 @@ const CreateRestaurantForm = () => {
             <Grid item xs={12} lg={6}>
               <TextField
                 fullWidth
-                id="cuisineType"
-                name="cuisineType"
-                label="Cuisine Type"
+                id="price"
+                name="price"
+                label="Price"
                 variant="outlined"
                 onChange={formik.handleChange}
-                value={formik.values.cuisineType}
+                value={formik.values.price}
               >
 
               </TextField>
@@ -158,12 +134,12 @@ const CreateRestaurantForm = () => {
             <Grid item xs={12} lg={6}>
               <TextField
                 fullWidth
-                id="openingHours"
-                name="openingHours"
-                label="Opening Hours"
+                id="category"
+                name="category"
+                label="Food Category"
                 variant="outlined"
                 onChange={formik.handleChange}
-                value={formik.values.openingHours}
+                value={formik.values.category}
               >
 
               </TextField>
@@ -171,12 +147,12 @@ const CreateRestaurantForm = () => {
             <Grid item xs={12}>
               <TextField
                 fullWidth
-                id="streetAddress"
-                name="streetAddress"
+                id="ingredients"
+                name="ingredients"
                 label="Street Address"
                 variant="outlined"
                 onChange={formik.handleChange}
-                value={formik.values.streetAddress}
+                value={formik.values.ingredients}
               >
 
               </TextField>
@@ -294,4 +270,4 @@ const CreateRestaurantForm = () => {
   );
 };
 
-export default CreateRestaurantForm;
+export default CreateMenuForm;
