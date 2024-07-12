@@ -4,6 +4,8 @@ import { Button, CircularProgress, Grid, IconButton, TextField } from "@mui/mate
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import CloseIcon from "@mui/icons-material/Close";
 import { uploadImageToCloudinary } from "../utils/UploadToCloudinary";
+import { useDispatch } from "react-redux";
+import { createRestaurant } from "../../component/State/Restaurant/Action";
 
 const initialValues = {
   name: "",
@@ -24,6 +26,8 @@ const initialValues = {
 
 const CreateRestaurantForm = () => {
   const [uploadImage, setUploadImage] = useState(false);
+  const dispatch = useDispatch();
+  const jwt = localStorage.getItem("jwt");
   const formik = useFormik({
     initialValues,
     onSubmit: (values) => {
@@ -31,8 +35,8 @@ const CreateRestaurantForm = () => {
         name: values.name,
         description: values.description,
         cuisineType: values.cuisineType,
-        streetAddress: {
-          address: values.streetAddress,
+        address: {
+          streetAddress: values.streetAddress,
           city: values.city,
           stateProvince: values.stateProvince,
           postalCode: values.postalCode,
@@ -48,6 +52,7 @@ const CreateRestaurantForm = () => {
         images: values.images,
       }
       console.log("data----", data);
+      dispatch(createRestaurant({data, jwt: jwt}));
     },
   });
 

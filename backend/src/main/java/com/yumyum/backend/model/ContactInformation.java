@@ -1,5 +1,6 @@
 package com.yumyum.backend.model;
 
+import jakarta.persistence.Entity;
 import lombok.Data;
 
 @Data

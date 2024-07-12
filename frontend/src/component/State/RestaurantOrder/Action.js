@@ -31,11 +31,11 @@ export const updateOrderStatus = ({ orderId, orderStatus, jwt }) => {
   };
 };
 
-export const fetchRestaurantsOrder = ({ orderId, orderStatus, jwt }) => {
+export const fetchRestaurantsOrder = ({ restaurantId, orderStatus, jwt }) => {
   return async (dispatch) => {
     dispatch({ type: GET_RESTAURANT_ORDER_REQUEST });
     try {
-      const { data } = await api.get(`/api/admin/order/restaurant/${orderId}`, {
+      const { data } = await api.get(`/api/admin/order/restaurant/${restaurantId}`, {
         params: { order_status: orderStatus },
         headers: {
           Authorization: `Bearer ${jwt}`,
