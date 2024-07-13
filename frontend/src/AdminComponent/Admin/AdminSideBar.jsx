@@ -29,9 +29,9 @@ const AdminSideBar = ({ handleClose }) => {
 
   const handleNavigate = (item) => {
      if (item.title === "LogOut") {
-        navigate("/");
-        dispatch(logout());
-        handleClose();
+       dispatch(logout());
+       handleClose();
+       navigate("/");
       }
       navigate(`/admin/restaurant${item.path}`);
   };

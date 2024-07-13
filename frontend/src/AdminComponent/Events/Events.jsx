@@ -3,6 +3,8 @@ import { Box, Button, Grid, Modal, TextField } from "@mui/material";
 import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
+import { useDispatch, useSelector } from "react-redux";
+import { createEventAction } from "../../component/State/Restaurant/Action";
 
 const style = {
   position: "absolute",
@@ -29,10 +31,15 @@ const Events = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [formValues, setFormValues] = React.useState(initialValues);
+  const dispatch = useDispatch();
+  const jwt = localStorage.getItem("jwt");
+  const { restaurant, restaurantOrder } = useSelector((store) => store);
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("formValues", formValues);
+    dispatch(createEventAction({ restaurantId:restaurant.userRestaurant.id, jwt, data: formValues }));
     setFormValues(initialValues); 
   };
 
