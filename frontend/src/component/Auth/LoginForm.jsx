@@ -39,6 +39,7 @@ const LoginForm = () => {
             fullWidth
             variant="outlined"
             margin="normal"
+            type="password"
           />
           <Button
             sx={{ mt: 2, padding: "0.5rem" }}

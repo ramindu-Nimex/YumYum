@@ -24,8 +24,8 @@ git clone https://github.com/ramindu-Nimex/YumYum.git
 ```bash
 Frontend
 
-Cleansy> cd frontend
-Cleansy\frontend> npm install
+YumYum> cd frontend
+YumYum\frontend> npm install
 
 Backend
 
